@@ -16,9 +16,7 @@ const NewExpense = (props) => {
 
     return (
         <div className="new-expense">
-            {isShow ? <ExpenseForm setView={setIsShow} onSaveEnteredData={saveExpenseDataHandler} /> :  <button onClick={() => setIsShow(true)}>Add Expense</button>}
-           
-            
+            {isShow ? <ExpenseForm setView={setIsShow} onSaveEnteredData={saveExpenseDataHandler} /> : <button onClick={() => setIsShow(true)}>Add Expense</button>}
         </div>
     );
 
