@@ -24,7 +24,7 @@ const AddUser = (props) => {
 
         setEnteredName(name);
         setEnteredAge(age);
-        props.setUser({ name, age })
+        props.setUser({ name, age, id: Math.random().toString() })
         e.target.reset();
 
     }
