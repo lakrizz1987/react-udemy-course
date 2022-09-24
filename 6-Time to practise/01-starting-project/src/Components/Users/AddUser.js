@@ -3,18 +3,18 @@ import Button from "../UI/Button";
 import Card from "../UI/Card";
 import styles from "./AddUser.module.css";
 
-const AddUser = () => {
+const AddUser = (props) => {
     const [eneteredName, setEnteredName] = useState('');
     const [eneteredAge, setEnteredAge] = useState('');
 
     function addUserHandler(e) {
         e.preventDefault();
-        
+
         const formData = new FormData(e.currentTarget);
         const name = formData.get('username');
         const age = formData.get('age');
 
-        if (name.length.trim() === 0 || age.length.trim() === 0) {
+        if (name.length === 0 || age.length === 0) {
             return;
         }
 
@@ -24,6 +24,7 @@ const AddUser = () => {
 
         setEnteredName(name);
         setEnteredAge(age);
+        props.setUser({ name, age })
         e.target.reset();
 
     }
