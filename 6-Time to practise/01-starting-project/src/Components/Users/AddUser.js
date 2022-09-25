@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
 import styles from "./AddUser.module.css";
 import ErrorModal from "../UI/ErrorModal";
 
 const AddUser = (props) => {
+    const userNameRef = useRef();
+
     const [error, setError] = useState();
 
     function setErrorState() {
@@ -13,6 +15,8 @@ const AddUser = (props) => {
 
     function addUserHandler(e) {
         e.preventDefault();
+        
+        console.log(userNameRef.current.value);
 
         const formData = new FormData(e.currentTarget);
         const name = formData.get('username');
@@ -44,7 +48,7 @@ const AddUser = (props) => {
             <Card className={styles.input}>
                 <form onSubmit={addUserHandler}>
                     <label htmlFor="username">Username</label>
-                    <input type='text' id="username" name="username" />
+                    <input type='text' id="username" name="username" ref={userNameRef}/>
                     <label htmlFor="Age">Age</label>
                     <input type='number' id="Age" name="age" />
                     <Button type="submit">Add user</Button>
