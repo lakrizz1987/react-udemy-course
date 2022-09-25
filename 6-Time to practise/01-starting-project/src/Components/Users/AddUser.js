@@ -25,7 +25,7 @@ const AddUser = (props) => {
             return;
         }
 
-        if (Number(age) < 0) {
+        if (Number(age) <= 0) {
             setError(
                 { title: 'Age is not correct!', text: 'Age can not be 0 !' }
             )
