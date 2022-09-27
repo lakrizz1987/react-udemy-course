@@ -4,7 +4,7 @@ import AuthContext from '../../context/authContext';
 import classes from './Navigation.module.css';
 
 const Navigation = (props) => {
-  const {isLoggedIn} = useContext(AuthContext)
+  const { isLoggedIn, logoutHandler } = useContext(AuthContext)
   return (
     <nav className={classes.nav}>
       <ul>
@@ -20,7 +20,7 @@ const Navigation = (props) => {
         )}
         {isLoggedIn && (
           <li>
-            <button onClick={props.onLogout}>Logout</button>
+            <button onClick={logoutHandler}>Logout</button>
           </li>
         )}
       </ul>
