@@ -4,7 +4,8 @@ import AuthContext from '../../context/authContext';
 import classes from './Navigation.module.css';
 
 const Navigation = (props) => {
-  const { isLoggedIn, logoutHandler } = useContext(AuthContext)
+  const { isLoggedIn, logoutHandler } = useContext(AuthContext);
+  
   return (
     <nav className={classes.nav}>
       <ul>
