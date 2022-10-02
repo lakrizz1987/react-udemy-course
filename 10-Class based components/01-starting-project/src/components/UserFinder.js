@@ -17,6 +17,8 @@ class UserFinder extends Component {
         }
     }
 
+    
+
     componentDidMount() {
         this.setState({ filteredUsers: this.context.users })
     }
@@ -25,10 +27,14 @@ class UserFinder extends Component {
         if (oldState.searchTerm !== this.state.searchTerm) {
             this.setState({ filteredUsers: this.context.users.filter((user) => user.name.includes(this.state.searchTerm)) })
         }
+        if(this.state.filteredUsers.length === 0){
+          throw new Error('UUUPPPSSS something get wrong!!!!')
+        }
     }
 
     searchChangeHandler(e) {
         this.setState({ searchTerm: e.target.value })
+        
     }
 
     render() {
