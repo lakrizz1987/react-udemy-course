@@ -4,12 +4,18 @@ import MoviesList from './components/MoviesList';
 import './App.css';
 
 function App() {
-  const [movies, setMovies] = useState([])
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   function getMoviesHandler() {
+    setIsLoading(true)
     fetch('https://swapi.dev/api/films')
       .then(res => res.json())
-      .then(data => setMovies(data.results))
+      .then(data => {
+        setMovies(data.results)
+        setIsLoading(false)
+      })
+
   }
 
 
@@ -19,7 +25,9 @@ function App() {
         <button onClick={getMoviesHandler}>Fetch Movies</button>
       </section>
       <section>
-        <MoviesList movies={movies} />
+        {!isLoading && movies.length > 0 && <MoviesList movies={movies} />}
+        {!isLoading && movies.length === 0 && <p>No movies found!</p>}
+        {isLoading && <p>Loading...</p>}
       </section>
     </React.Fragment>
   );
