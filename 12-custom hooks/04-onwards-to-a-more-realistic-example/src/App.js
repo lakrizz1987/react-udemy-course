@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import Tasks from './components/Tasks/Tasks';
 import NewTask from './components/NewTask/NewTask';
@@ -16,6 +16,10 @@ function App() {
 
   const { isLoading, error, fetchTasks } = useHttp(addTaskHandler);
   const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    fetchTasks();
+}, [fetchTasks]);
 
 
   const taskAddHandler = (task) => {

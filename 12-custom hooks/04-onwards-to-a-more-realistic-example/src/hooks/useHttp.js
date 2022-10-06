@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 const useHttp = (handler) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -29,10 +29,7 @@ const useHttp = (handler) => {
         setIsLoading(false);
     },[handler]);
 
-    useEffect(() => {
-        fetchTasks();
-    }, [fetchTasks]);
-
+   
     return { isLoading, error, fetchTasks }
 };
 
