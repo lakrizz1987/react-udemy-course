@@ -18,7 +18,10 @@ const useHttp = (handler) => {
             }
 
             const data = await response.json();
-            handler(data)
+            if(handler){
+                handler(data)
+            }
+            
 
         } catch (err) {
             setError(err.message || 'Something went wrong!');
