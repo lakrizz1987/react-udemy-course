@@ -1,36 +1,28 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const SimpleInput = (props) => {
-  const inputRef = useRef();
+
   const [enteredName, setEnteredName] = useState('');
-  const [nameIsvalid, setNameIsValid] = useState(false);
   const [formIsTouched, setFormIsTouched] = useState(false);
 
+  let nameIsvalid = enteredName.trim() !== '';
   let inputIsInvalid = formIsTouched && !nameIsvalid;
 
   const inputOnChangeHandler = (e) => {
-    setEnteredName(e.target.value);
+    setEnteredName(e.target.value.trim());
   }
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
     setFormIsTouched(true);
 
-    if (inputRef.current.value === '') {
-      setNameIsValid(false)
-      return
-    }
-    setNameIsValid(true)
-    console.log(inputRef.current.value)
+    console.log(enteredName)
+    setEnteredName('');
+    setFormIsTouched(false);
   }
 
   const onBlurHandler = (e) => {
     setFormIsTouched(true);
-
-    if (inputRef.current.value === '') {
-      setNameIsValid(false)
-      return
-    }
   }
 
   const divClass = inputIsInvalid ? 'form-control invalid' : 'form-control'
@@ -39,7 +31,7 @@ const SimpleInput = (props) => {
     <form onSubmit={onSubmitHandler}>
       <div className={divClass}>
         <label htmlFor='name'>Your Name</label>
-        <input ref={inputRef} type='text' id='name'
+        <input type='text' id='name' value={enteredName}
           onChange={inputOnChangeHandler} onBlur={onBlurHandler} />
         {inputIsInvalid && <p className="error-text">All fields are require.</p>}
       </div>
