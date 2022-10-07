@@ -15,11 +15,18 @@ const useValidate = (validateFunction) => {
         setIsToched(true);
     };
 
+    const reset = () => {
+        setEnteredValue('')
+        setIsToched(false);
+    }
+
     return {
         value: enteredValue,
         hasError,
+        isValid: valueIsValid,
         valueInputChangeHandler,
-        valueInputBlurHandler
+        valueInputBlurHandler,
+        reset
     }
 };
 
