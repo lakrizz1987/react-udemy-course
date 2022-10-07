@@ -24,13 +24,23 @@ const SimpleInput = (props) => {
     console.log(inputRef.current.value)
   }
 
+  const onBlurHandler = (e) => {
+    setFormIsTouched(true);
+
+    if (inputRef.current.value === '') {
+      setNameIsValid(false)
+      return
+    }
+  }
+
   const divClass = inputIsInvalid ? 'form-control invalid' : 'form-control'
 
   return (
     <form onSubmit={onSubmitHandler}>
       <div className={divClass}>
         <label htmlFor='name'>Your Name</label>
-        <input ref={inputRef} type='text' id='name' onChange={inputOnChangeHandler} />
+        <input ref={inputRef} type='text' id='name'
+          onChange={inputOnChangeHandler} onBlur={onBlurHandler} />
         {inputIsInvalid && <p className="error-text">All fields are require.</p>}
       </div>
       <div className="form-actions">
