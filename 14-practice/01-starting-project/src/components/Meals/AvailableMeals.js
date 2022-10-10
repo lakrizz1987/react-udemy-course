@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 const AvailableMeals = () => {
 
   const [DUMMY_MEALS, SET_DUMMY_MEALS] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     fetch('https://meals-71a53-default-rtdb.firebaseio.com/meal.json')
@@ -18,11 +19,22 @@ const AvailableMeals = () => {
             return [...oldState, element]
           })
         });
+        setIsLoading(false)
       })
       .catch(err => {
         alert(err)
       })
+
   }, [])
+
+  if (isLoading) {
+    return (
+      <section className={classes.loading}>
+        <h2>Loading....</h2>
+      </section>
+    )
+  }
+
 
   const mealsList = DUMMY_MEALS.map((meal) => (
     <MealItem
@@ -37,7 +49,7 @@ const AvailableMeals = () => {
   return (
     <section className={classes.meals}>
       <Card>
-        {mealsList.length > 0 ? <ul>{mealsList}</ul> : <p>Loading....</p>}
+        <ul>{mealsList}</ul>
       </Card>
     </section>
   );
