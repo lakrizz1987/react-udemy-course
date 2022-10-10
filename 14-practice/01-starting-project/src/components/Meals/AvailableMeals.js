@@ -8,11 +8,18 @@ import { useEffect, useState } from 'react';
 const AvailableMeals = () => {
 
   const [DUMMY_MEALS, SET_DUMMY_MEALS] = useState([]);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
+  const [httpError,setHttpError] = useState(null);
 
   useEffect(() => {
     fetch('https://meals-71a53-default-rtdb.firebaseio.com/meal.json')
-      .then(res => res.json())
+      .then(res => {
+        if(!res.ok){
+          throw new Error('Something was wrong!')
+        }else{
+          return res.json()
+        }
+      })
       .then(data => {
         Object.values(data)[0].forEach(element => {
           SET_DUMMY_MEALS(oldState => {
@@ -22,7 +29,8 @@ const AvailableMeals = () => {
         setIsLoading(false)
       })
       .catch(err => {
-        alert(err)
+        setHttpError(err.message)
+        setIsLoading(false)
       })
 
   }, [])
@@ -32,6 +40,14 @@ const AvailableMeals = () => {
       <section className={classes.loading}>
         <h2>Loading....</h2>
       </section>
+    )
+  }
+
+  if(httpError){
+    return(
+      <section className={classes['error-http']}>
+      <h2>{httpError}</h2>
+    </section>
     )
   }
 
