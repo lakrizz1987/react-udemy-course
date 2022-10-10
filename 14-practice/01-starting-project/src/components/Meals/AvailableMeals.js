@@ -1,35 +1,29 @@
 import Card from '../UI/Card';
 import MealItem from './MealItem/MealItem';
 import classes from './AvailableMeals.module.css';
+import { useEffect, useState } from 'react';
 
-const DUMMY_MEALS = [
-  {
-    id: 'm1',
-    name: 'Sushi',
-    description: 'Finest fish and veggies',
-    price: 22.99,
-  },
-  {
-    id: 'm2',
-    name: 'Schnitzel',
-    description: 'A german specialty!',
-    price: 16.5,
-  },
-  {
-    id: 'm3',
-    name: 'Barbecue Burger',
-    description: 'American, raw, meaty',
-    price: 12.99,
-  },
-  {
-    id: 'm4',
-    name: 'Green Bowl',
-    description: 'Healthy...and green...',
-    price: 18.99,
-  },
-];
+
 
 const AvailableMeals = () => {
+
+  const [DUMMY_MEALS, SET_DUMMY_MEALS] = useState([]);
+
+  useEffect(() => {
+    fetch('https://meals-71a53-default-rtdb.firebaseio.com/meal.json')
+      .then(res => res.json())
+      .then(data => {
+        Object.values(data)[0].forEach(element => {
+          SET_DUMMY_MEALS(oldState => {
+            return [...oldState, element]
+          })
+        });
+      })
+      .catch(err => {
+        alert(err)
+      })
+  }, [])
+
   const mealsList = DUMMY_MEALS.map((meal) => (
     <MealItem
       key={meal.id}
@@ -43,7 +37,7 @@ const AvailableMeals = () => {
   return (
     <section className={classes.meals}>
       <Card>
-        <ul>{mealsList}</ul>
+        {mealsList.length > 0 ? <ul>{mealsList}</ul> : <p>Loading....</p>}
       </Card>
     </section>
   );
