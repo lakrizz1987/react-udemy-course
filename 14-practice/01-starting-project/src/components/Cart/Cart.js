@@ -21,6 +21,21 @@ const Cart = (props) => {
     cartCtx.addItem(item);
   };
 
+  const onChechoutSumbit = (userData) => {
+    const data = {
+      user: userData,
+      purchase: cartCtx.items
+    }
+    
+    fetch('https://meals-71a53-default-rtdb.firebaseio.com/store.son', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .catch(err => alert(err))
+
+  }
+
   const cartItems = (
     <ul className={classes['cart-items']}>
       {cartCtx.items.map((item) => (
@@ -31,6 +46,7 @@ const Cart = (props) => {
           price={item.price}
           onRemove={cartItemRemoveHandler.bind(null, item.id)}
           onAdd={cartItemAddHandler.bind(null, item)}
+
         />
       ))}
     </ul>
@@ -56,7 +72,7 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      {isChekout && <Checkout onCancel={props.onClose} />}
+      {isChekout && <Checkout onCancel={props.onClose} onChechoutSumbit={onChechoutSumbit} />}
       {!isChekout && modalButtons}
     </Modal>
   );

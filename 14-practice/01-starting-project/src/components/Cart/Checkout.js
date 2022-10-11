@@ -5,11 +5,11 @@ const inputIsValid = (value) => value.trim() !== '';
 const postalIsValid = (value) => value.length === 5
 
 const Checkout = (props) => {
-    const [formValidity,setFormValidity] = useState({
-        name:true,
-        stret:true,
-        postal:true,
-        city:true
+    const [formValidity, setFormValidity] = useState({
+        name: true,
+        stret: true,
+        postal: true,
+        city: true
     });
 
     const nameInputRef = useRef();
@@ -31,15 +31,24 @@ const Checkout = (props) => {
         const enteredPostalCodeIsValid = postalIsValid(enteredPostalCode);
 
         setFormValidity({
-            name:enteredNameIsValid,
-            stret:enteredStreetIsValid,
+            name: enteredNameIsValid,
+            stret: enteredStreetIsValid,
             postal: enteredPostalCodeIsValid,
-            city:enteredCityIsValid
+            city: enteredCityIsValid
         })
 
         const formIsValid = enteredNameIsValid && enteredStreetIsValid && enteredCityIsValid && enteredPostalCodeIsValid;
 
-        
+        if (!formIsValid) {
+            return
+        }
+
+        props.onChechoutSumbit({
+            name: enteredName,
+            stret: enteredStreet,
+            postal: enteredPostalCode,
+            city: enteredCity
+        })
     };
 
     const nameClasses = formValidity.name ? classes.control : `${classes.control} ${classes.invalid}`
@@ -52,22 +61,22 @@ const Checkout = (props) => {
             <div className={nameClasses}>
                 <label htmlFor='name' >Your Name</label>
                 <input type='text' id='name' ref={nameInputRef} />
-                {!formValidity.name && <p style={{color:'red'}}>Please eneter correct name!</p>}
+                {!formValidity.name && <p style={{ color: 'red' }}>Please eneter correct name!</p>}
             </div>
             <div className={streetClasses}>
                 <label htmlFor='street'>Street</label>
                 <input type='text' id='street' ref={streetInputRef} />
-                {!formValidity.stret && <p style={{color:'red'}}>Please eneter correct street!</p>}
+                {!formValidity.stret && <p style={{ color: 'red' }}>Please eneter correct street!</p>}
             </div>
             <div className={postalClasses}>
                 <label htmlFor='postal'>Postal Code</label>
                 <input type='text' id='postal' ref={postalCodeInputRef} />
-                {!formValidity.postal && <p style={{color:'red'}}>Please eneter correct postal code!</p>}
+                {!formValidity.postal && <p style={{ color: 'red' }}>Please eneter correct postal code!</p>}
             </div>
             <div className={cityClasses}>
                 <label htmlFor='city'>City</label>
                 <input type='text' id='city' ref={cityInputRef} />
-                {!formValidity.city && <p style={{color:'red'}}>Please eneter correct city!</p>}
+                {!formValidity.city && <p style={{ color: 'red' }}>Please eneter correct city!</p>}
             </div>
             <div className={classes.actions}>
                 <button type='button' onClick={props.onCancel}>
