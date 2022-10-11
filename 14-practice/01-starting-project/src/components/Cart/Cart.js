@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { Fragment, useContext, useState } from 'react';
 
 import Modal from '../UI/Modal';
 import CartItem from './CartItem';
@@ -9,6 +9,8 @@ import Checkout from './Checkout';
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
   const [isChekout, setIsCheckout] = useState(false);
+  const [isSending,setIsSending] = useState(false);
+  const [isSucsess,setIsSucsess] = useState(false)
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
@@ -26,12 +28,16 @@ const Cart = (props) => {
       user: userData,
       purchase: cartCtx.items
     }
-    
-    fetch('https://meals-71a53-default-rtdb.firebaseio.com/store.son', {
+
+    fetch('https://meals-71a53-default-rtdb.firebaseio.com/store.json', {
       method: 'POST',
       body: JSON.stringify(data)
     })
-      .then(res => res.json())
+      .then(res => {
+        setIsSending(true)
+        setIsSucsess(true)
+        return res.json()
+      })
       .catch(err => alert(err))
 
   }
@@ -65,8 +71,8 @@ const Cart = (props) => {
     </div>
   )
 
-  return (
-    <Modal onClose={props.onClose}>
+  const modalContent = (
+    <Fragment>
       {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>
@@ -74,6 +80,22 @@ const Cart = (props) => {
       </div>
       {isChekout && <Checkout onCancel={props.onClose} onChechoutSumbit={onChechoutSumbit} />}
       {!isChekout && modalButtons}
+    </Fragment>
+  )
+
+  const modalContentAfterOrder = (
+    <Fragment>
+      <p>Order was send! Thank you!</p>
+      <button className={classes.button} onClick={props.onClose}>
+        Close
+      </button>
+    </Fragment>
+  )
+
+  return (
+    <Modal onClose={props.onClose}>
+      {!isSending && modalContent}
+      {isSucsess && modalContentAfterOrder}
     </Modal>
   );
 };
