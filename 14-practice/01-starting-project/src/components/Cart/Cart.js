@@ -36,6 +36,7 @@ const Cart = (props) => {
       .then(res => {
         setIsSending(true)
         setIsSucsess(true)
+        cartCtx.clearHandler()
         return res.json()
       })
       .catch(err => alert(err))
@@ -91,6 +92,8 @@ const Cart = (props) => {
       </button>
     </Fragment>
   )
+
+  
 
   return (
     <Modal onClose={props.onClose}>
