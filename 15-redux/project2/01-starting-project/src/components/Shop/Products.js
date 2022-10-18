@@ -10,11 +10,12 @@ const Products = (props) => {
       <h2>Buy your favorite products</h2>
       <ul>
         {DUMMY_PRODUCTS.map(x => <ProductItem
+          key={x.id}
+          id={x.id}
           title={x.title}
           price={x.price}
           description={x.description}
         />)}
-
       </ul>
     </section>
   );
