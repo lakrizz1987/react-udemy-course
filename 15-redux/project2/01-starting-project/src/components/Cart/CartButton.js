@@ -3,7 +3,7 @@ import classes from './CartButton.module.css';
 import { uiActions } from '../../store/uii-slice'
 
 const CartButton = (props) => {
-  const cartSliceTotalQuantity = useSelector(state=>state.cart.totalQuantity)
+  const cartSliceTotalQuantity = useSelector(state => state.cart.totalQuantity)
   const dispatch = useDispatch();
 
   function showCartHandler() {
