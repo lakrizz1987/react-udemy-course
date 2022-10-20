@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import classes from './QuoteItem.module.css';
 
 const QuoteItem = (props) => {
@@ -10,9 +10,9 @@ const QuoteItem = (props) => {
         </blockquote>
         <figcaption>{props.author}</figcaption>
       </figure>
-      <NavLink to={`/quotes/${props.id}`} className='btn'>
+      <Link to={`/quotes/${props.id}`} className='btn'>
         View Fullscreen
-      </NavLink>
+      </Link>
     </li>
   );
 };
