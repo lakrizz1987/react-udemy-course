@@ -1,6 +1,14 @@
-const CreateQuotes = () =>{
-    return(
-        <h1>Create Quotes</h1>
+import QuoteForm from "../components/quotes/QuoteForm";
+
+
+const CreateQuotes = () => {
+    
+    const onAddHandler = (data) => {
+        console.log(data)
+    }
+
+    return (
+        <QuoteForm onAddQuote={onAddHandler} />
     )
 };
 
