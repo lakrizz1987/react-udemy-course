@@ -21,6 +21,7 @@ function App() {
         <Route path='/create' >
           <CreateQuotes />
         </Route>
+        <Route path='*' render={()=><h1 style={{textAlign:'center',color:'#008080'}}>No page found!!!</h1>}></Route>
       </Switch>
     </Layout>
   );
