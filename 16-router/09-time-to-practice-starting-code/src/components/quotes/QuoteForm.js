@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 
+
 import Card from '../UI/Card';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import classes from './QuoteForm.module.css';
@@ -7,6 +8,7 @@ import classes from './QuoteForm.module.css';
 const QuoteForm = (props) => {
   const authorInputRef = useRef();
   const textInputRef = useRef();
+  
 
   function submitFormHandler(event) {
     event.preventDefault();
