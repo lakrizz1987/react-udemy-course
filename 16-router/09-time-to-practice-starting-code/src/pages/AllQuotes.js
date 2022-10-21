@@ -1,13 +1,7 @@
-import { useEffect, useState } from "react";
 import QuoteList from "../components/quotes/QuoteList";
-import useHttp from "../hooks/use-http";
+import { useEffect, useState } from "react";
 import { getAllQuotes } from "../lib/api";
 
-
-const DUMMY_DATA = [
-    { id: 'p1', author: 'Ivo', text: 'Learning React is super!' },
-    { id: 'p2', author: 'Vito', text: 'Learning Angular is great!' },
-]
 
 const AllQuotes = () => {
     const [quotes, setQuotes] = useState([]);
