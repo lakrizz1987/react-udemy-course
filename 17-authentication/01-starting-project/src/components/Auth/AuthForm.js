@@ -1,28 +1,77 @@
-import { useState } from 'react';
+import { useContext, useRef, useState } from 'react';
+import AuthContext from '../../store/AuthContext';
 
 import classes from './AuthForm.module.css';
 
+let url = '';
+
 const AuthForm = () => {
+  const ctx = useContext(AuthContext);
+
+  const [isSendingRequest,setIsSendingRequest] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  if (isLogin) {
+    url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBrUgTAteNBRQgdJXs_3OXUjh3hzPY_8ac'
+  } else {
+    url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBrUgTAteNBRQgdJXs_3OXUjh3hzPY_8ac'
+  };
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    setIsSendingRequest(true);
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({ email, password, returnSecureToken: true }),
+    }).then(res => {
+
+      if (!res.ok) {
+       throw new Error('Something was wrong!!!')
+      } else {
+        return res.json()
+      }
+    }).then(data => {
+      setIsSendingRequest(false);
+      ctx.login(data.idToken)
+      
+      
+    })
+    .catch(err => {
+      alert(err.message);
+      setIsSendingRequest(false);
+    })
+    
+  };
+
   return (
     <section className={classes.auth}>
       <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
-      <form>
+      <form onSubmit={submitHandler}>
         <div className={classes.control}>
           <label htmlFor='email'>Your Email</label>
-          <input type='email' id='email' required />
+          <input type='email' id='email' required ref={emailRef} />
         </div>
         <div className={classes.control}>
           <label htmlFor='password'>Your Password</label>
-          <input type='password' id='password' required />
+          <input type='password' id='password' required ref={passwordRef} />
         </div>
         <div className={classes.actions}>
-          <button>{isLogin ? 'Login' : 'Create Account'}</button>
+          {isSendingRequest && <p className='centered'>Sending....</p>}
+          {!isSendingRequest && <button>{isLogin ? 'Login' : 'Create Account'}</button>}
+          
           <button
             type='button'
             className={classes.toggle}
