@@ -2,13 +2,13 @@ import { useContext, useRef } from 'react';
 import AuthContext from '../../store/AuthContext';
 import classes from './ProfileForm.module.css';
 
-const ProfileForm = () => {
+const ProfileForm = (props) => {
   const passRef = useRef();
   const ctx = useContext(AuthContext);
 
+
   function submitHandler(e) {
     e.preventDefault();
-
 
     const newPassword = passRef.current.value;
 
@@ -22,7 +22,10 @@ const ProfileForm = () => {
       }
     )
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        props.changeStateSuccess();
+        passRef.current.value = '';
+      })
       .catch(err => {
         alert(err)
       })
