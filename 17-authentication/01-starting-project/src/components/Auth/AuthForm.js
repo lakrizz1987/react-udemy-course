@@ -10,7 +10,7 @@ const AuthForm = () => {
   const history = useHistory();
   const ctx = useContext(AuthContext);
 
-  const [isSendingRequest,setIsSendingRequest] = useState(false);
+  const [isSendingRequest, setIsSendingRequest] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -41,21 +41,22 @@ const AuthForm = () => {
     }).then(res => {
 
       if (!res.ok) {
-       throw new Error('Something was wrong!!!')
+        throw new Error('Something was wrong!!!')
       } else {
         return res.json()
       }
     }).then(data => {
+      const time = new Date(new Date().getTime() + (+data.expiresIn * 1000))
       setIsSendingRequest(false);
-      ctx.login(data.idToken)
+      ctx.login(data.idToken, time.toString())
       history.replace('/')
-      
+
     })
-    .catch(err => {
-      alert(err.message);
-      setIsSendingRequest(false);
-    })
-    
+      .catch(err => {
+        alert(err.message);
+        setIsSendingRequest(false);
+      })
+
   };
 
   return (
@@ -73,7 +74,7 @@ const AuthForm = () => {
         <div className={classes.actions}>
           {isSendingRequest && <p className='centered'>Sending....</p>}
           {!isSendingRequest && <button>{isLogin ? 'Login' : 'Create Account'}</button>}
-          
+
           <button
             type='button'
             className={classes.toggle}

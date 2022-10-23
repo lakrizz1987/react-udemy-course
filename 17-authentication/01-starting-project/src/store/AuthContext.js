@@ -13,15 +13,27 @@ export const AuthContextProvider = (props) => {
 
     const isLoginUser = !!token;
 
-    const loginHandler = (token) => {
-        sessionStorage.setItem('token',token)
-        setToken(token)
+    const calculatingTime = (time) => {
+        const currentTime = new Date().getTime();
+        const futureTime = new Date(time).getTime();
+
+        const duration = futureTime - currentTime;
+        return duration;
     }
 
     const logoutHandler = () => {
         setToken('')
         sessionStorage.clear();
     }
+
+    const loginHandler = (token,time) => {
+        sessionStorage.setItem('token', token)
+        setToken(token)
+        const timeForLogOut = calculatingTime(time);
+
+        setTimeout(loginHandler,timeForLogOut)
+    }
+
 
     const providerValue = {
         token: token,
