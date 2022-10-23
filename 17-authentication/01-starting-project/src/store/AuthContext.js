@@ -1,5 +1,7 @@
 import React, { useState, createContext } from "react";
 
+let timeout;
+
 const AuthContext = createContext({
     token: '',
     isLogin: false,
@@ -24,14 +26,17 @@ export const AuthContextProvider = (props) => {
     const logoutHandler = () => {
         setToken('')
         sessionStorage.clear();
+        if (timeout) {
+            clearTimeout(timeout)
+        }
     }
 
-    const loginHandler = (token,time) => {
+    const loginHandler = (token, time) => {
         sessionStorage.setItem('token', token)
         setToken(token)
         const timeForLogOut = calculatingTime(time);
 
-        setTimeout(loginHandler,timeForLogOut)
+        timeout = setTimeout(loginHandler, timeForLogOut)
     }
 
 

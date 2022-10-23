@@ -45,8 +45,11 @@ const AuthForm = () => {
       } else {
         return res.json()
       }
+      
     }).then(data => {
-      const time = new Date(new Date().getTime() + (+data.expiresIn * 1000))
+
+      const time = new Date(new Date().getTime() + (+data.expiresIn * 1000));
+
       setIsSendingRequest(false);
       ctx.login(data.idToken, time.toString())
       history.replace('/')
