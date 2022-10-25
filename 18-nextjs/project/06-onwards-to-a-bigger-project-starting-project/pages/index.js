@@ -1,4 +1,6 @@
+import { Fragment } from 'react'
 import MeetupList from '../components/meetups/MeetupList'
+import Head from 'next/head';
 
 const DUMMY_MEETUPS = [
     {
@@ -18,8 +20,18 @@ const DUMMY_MEETUPS = [
 ]
 
 const HomePage = (props) => {
-    return <MeetupList meetups={props.meetups} />
+
+    return (
+        <Fragment>
+            <Head>
+                <title>React Meetups</title>
+                <meta name='description' content='Page of great meetups!' />
+            </Head>
+            <MeetupList meetups={props.meetups} />
+        </Fragment>
+    )
 }
+
 
 export async function getStaticProps() {
     //fetch data
