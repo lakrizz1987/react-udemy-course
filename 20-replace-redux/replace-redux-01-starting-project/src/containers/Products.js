@@ -11,7 +11,7 @@ const Products = props => {
 
   return (
     <ul className="products-list">
-      {ctx.products.map(prod => (
+      {ctx.productList.map(prod => (
         <ProductItem
           key={prod.id}
           id={prod.id}
