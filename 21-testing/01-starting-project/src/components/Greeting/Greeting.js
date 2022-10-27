@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Output from "../Output/Output";
 
 const Greeting = () => {
 
@@ -11,8 +12,8 @@ const Greeting = () => {
     return (
         <div>
             <h2>Hello World!</h2>
-            {!changeText && <p>Some text here!</p>}
-            {changeText && <p>Changed!</p>}
+            {!changeText && <Output>Some text here!</Output>}
+            {changeText && <Output>Changed!</Output>}
             <button onClick={changeTextHandler}>Change Text!</button>
         </div>
     )
