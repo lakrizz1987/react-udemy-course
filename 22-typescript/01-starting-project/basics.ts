@@ -38,3 +38,9 @@ let arrayPersons: {
 
 arrayPersons = [];
 arrayPersons.push(preson);
+
+//infirence
+
+let tea = 'My-day';
+//tea = 2 - wrong
+tea = "Tea"
