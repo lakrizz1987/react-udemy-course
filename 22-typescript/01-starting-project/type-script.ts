@@ -1,7 +1,8 @@
-function add(a: number, b: number) {
+function sumNumbers(a: number, b: number): number {
     return a + b;
 }
 
-const result = add(2, 8);
+let resultNumbers = sumNumbers(2, 8);
 
-console.log(result);
+console.log(resultNumbers);
+export {};

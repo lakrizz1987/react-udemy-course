@@ -1,5 +1,7 @@
-function add(a, b) {
+"use strict";
+exports.__esModule = true;
+function sumNumbers(a, b) {
     return a + b;
 }
-var result = add(2, 8);
-console.log(result);
+var resultNumbers = sumNumbers(2, 8);
+console.log(resultNumbers);
