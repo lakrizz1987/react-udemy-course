@@ -1,10 +1,12 @@
 import { prependListener } from "process";
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { isPropertySignature } from "typescript";
+import { TodoContext } from "../store/TodoContext";
 import styles from './NewTodo.module.css';
 
-const NewTodo: React.FC<{ addHandler: (x: string) => void }> = (porps) => {
+const NewTodo: React.FC = () => {
     const inputRef = useRef<HTMLInputElement>(null);
+    const ctx = useContext(TodoContext);
 
     const submitHandler = (e: React.FormEvent) => {
         e.preventDefault();
@@ -16,7 +18,9 @@ const NewTodo: React.FC<{ addHandler: (x: string) => void }> = (porps) => {
             return
         }
 
-        porps.addHandler(newTodoText)
+        ctx.onAddTodo(newTodoText)
+
+       
     };
 
     return (
