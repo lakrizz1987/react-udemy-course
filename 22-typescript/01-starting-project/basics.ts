@@ -49,3 +49,18 @@ tea = "Tea"
 
 let course: string | number = 'React';
 course = 123;
+
+//aliases
+
+type Car = {
+    make: string;
+    hp:number;
+}
+
+const bmw: Car = {
+    make: 'BMW',
+    hp:200
+}
+
+let arrayOfCars: Car[];
+arrayOfCars = [{make:'Polo',hp:120},{make:'Reno',hp:420}]
