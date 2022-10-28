@@ -44,3 +44,8 @@ arrayPersons.push(preson);
 let tea = 'My-day';
 //tea = 2 - wrong
 tea = "Tea"
+
+//union types
+
+let course: string | number = 'React';
+course = 123;
