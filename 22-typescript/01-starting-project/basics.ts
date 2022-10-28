@@ -54,13 +54,29 @@ course = 123;
 
 type Car = {
     make: string;
-    hp:number;
+    hp: number;
 }
 
 const bmw: Car = {
     make: 'BMW',
-    hp:200
+    hp: 200
 }
 
 let arrayOfCars: Car[];
-arrayOfCars = [{make:'Polo',hp:120},{make:'Reno',hp:420}]
+arrayOfCars = [{ make: 'Polo', hp: 120 }, { make: 'Reno', hp: 420 }]
+
+//functions & types
+
+function sum(a: number, b: number): number | string {
+    return a + b
+}
+
+//Generics
+
+function insertInArray<T>(array: T[], value: T) {
+    const newArr = [value, ...array]
+    return newArr
+};
+
+const arrNumberss = insertInArray([1, 2, 3], 4)
+const arrStringss = insertInArray(['a', 'b'], 'c')
