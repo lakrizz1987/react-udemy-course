@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Greeting from './components/Greeting/Greeting';
 import Async from './components/Async/Async';
